@@ -1,0 +1,63 @@
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using VirtualExpress.Domain.Models;
+using VirtualExpress.Domain.Persistence.Context;
+using VirtualExpress.Domain.Repositories;
+
+namespace VirtualExpress.Persistence.Repository
+{
+    public class TerminalRepository : BaseRepository, ITerminalRepository
+    {
+        public TerminalRepository(AppDbContext context) : base(context)
+        {
+        }
+
+        public async Task AddAsync(Terminal terminal)
+        {
+            await _context.Terminals.AddAsync(terminal);
+        }
+
+        public async Task<IEnumerable<Terminal>> ListAsync()
+        {
+            return await _context.Terminals.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Terminal>> ListByCityOriginIdAndCityShipIdAsync(int cityOriginId, int cityShipId)
+        {
+            return await _context.Terminals
+                .Where(co => co.CityId == cityOriginId)
+                .Where(cs => cs.CityId == cityShipId)
+                .Include(p => p.Company)
+                .Include(p => p.City)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Terminal>> ListByCompanyByIdAsync(int id)
+        {
+            return await _context.Terminals
+               .Where(co => co.CompanyId == id)
+               .Include(p => p.Company)
+               .Include(p => p.City)
+               .ToListAsync();
+        }
+
+        public async Task<Terminal> FindByCompanyIdAndCityOriginIdAndCityShipId(int companyId, int cityOriginId, int cityShipId)
+        {
+            return await _context.Terminals.FindAsync(companyId, cityOriginId, cityShipId);
+        }
+
+        public void Remove(Terminal terminal)
+        {
+            _context.Terminals.Remove(terminal);
+        }
+
+        public async Task<Terminal> FindById(int id)
+        {
+            return await _context.Terminals.FindAsync(id);
+        }
+    }
+}
