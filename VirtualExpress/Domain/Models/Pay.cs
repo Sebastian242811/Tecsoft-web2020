@@ -8,7 +8,7 @@ namespace VirtualExpress.Domain.Models
     public class Pay
     {
         public int Id { get; set; }
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
         public DateTime PayDate { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +7,6 @@ using VirtualExpress.Domain.Models;
 using VirtualExpress.Domain.Services.Communications;
 using VirtualExpress.Extensions;
 using VirtualExpress.Resource;
-using VirtualExpress.Services;
 
 namespace VirtualExpress.Controllers
 {
@@ -27,12 +24,13 @@ namespace VirtualExpress.Controllers
             _mapper = mapper;
         }
 
-        [SwaggerOperation(
-            Summary = "List all company",
-            Description = "List of company",
-            OperationId = "ListAllCompany",
-            Tags = new[] { "List", "Company" }
-            )]
+        //[SwaggerOperation(
+        //    Summary = "List all company",
+        //    Description = "List of company",
+        //    OperationId = "ListAllCompany",
+        //    Tags = new[] { "List", "Company" }
+        //    )]
+
         [SwaggerResponse(200, "List of Company", typeof(IEnumerable<CompanyResource>))]
         [ProducesResponseType(typeof(IEnumerable<CompanyResource>), 200)]
         [HttpGet]

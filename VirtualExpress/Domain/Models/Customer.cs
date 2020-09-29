@@ -14,6 +14,7 @@ namespace VirtualExpress.Domain.Models
         public string Direction { get; set; }
         public string EMail { get; set; }
         public bool Active { get; set; }
+        public string Password { get; set; }
         public IList<Package> Packages { get; set; } = new List<Package>();
         public IList<Chat> Chats { get; set; } = new List<Chat>();
         public IList<Comentary> Comentaries { get; set; } = new List<Comentary>();

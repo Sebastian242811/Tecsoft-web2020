@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using VirtualExpress.Domain.Models;
 using VirtualExpress.Domain.Persistence.Context;
 using VirtualExpress.Domain.Repositories;
 using VirtualExpress.Domain.Services;
@@ -44,6 +45,15 @@ namespace VirtualExpress
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<ITerminalRepository, TerminalRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+            services.AddScoped<IFreightRepository, FreightRepository>();
+            services.AddScoped<IPackageRepository, PackageRepository>();
+            services.AddScoped<IPayRepository, PayRepository>();
+            services.AddScoped<IChatRepository, ChatRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerServiceEmployeeRepository, CustomerServiceEmployeeRepository>();
+            services.AddScoped<IDispatcherRepository, DispatcherRepository>();
+            services.AddScoped<IDriverRepository, DriverRepository>();
 
             services.AddRouting(options => options.LowercaseUrls = true);
 
@@ -54,6 +64,15 @@ namespace VirtualExpress
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<ITerminalService, TerminalService>();
+            services.AddScoped<ISubscriptionService, SubscriptionService>();
+            services.AddScoped<IFreightService, FreightService>();
+            services.AddScoped<IPackageStateService, PackageStateService>();
+            services.AddScoped<IPayService, PayService>();
+            services.AddScoped<IChatService, ChatService>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<ICustomerServiceEmployeeService, CustomerServiceEmployeeService>();
+            services.AddScoped<IDispatcherService, DispatcherService>();
+            services.AddScoped<IDriverService, DriverService>();
 
             services.AddAutoMapper(typeof(Startup));
 

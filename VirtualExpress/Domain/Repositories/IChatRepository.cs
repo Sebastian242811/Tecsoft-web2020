@@ -9,6 +9,7 @@ namespace VirtualExpress.Domain.Repositories
     public interface IChatRepository
     {
         Task<IEnumerable<Chat>> ListAsync();
+        Task<IEnumerable<Chat>> ListByUserIdAndEmployeeId(int userId, int employeeId);
         Task AddAsync(Chat Chat);
         Task<Chat> FindById(int id);
         void Remove(Chat Chat);

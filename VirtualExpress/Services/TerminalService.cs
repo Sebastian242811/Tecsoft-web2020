@@ -54,9 +54,20 @@ namespace VirtualExpress.Services
             throw new NotImplementedException();
         }
 
-        public Task<TerminalResponse> SaveAssync(Terminal terminal)
+        public async Task<TerminalResponse> SaveAssync(Terminal terminal)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _terminalRepository.AddAsync(terminal);
+                await _unitOfWork.CompleteAsync();
+
+                return new TerminalResponse(terminal);
+            }
+            catch(Exception e)
+            {
+                return new TerminalResponse($"An error ocurred while saving the terminal: {e.Message}");
+            }
+            
         }
 
         public Task<TerminalResponse> UpdateAssync(int id, Terminal terminal)

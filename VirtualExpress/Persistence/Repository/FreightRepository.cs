@@ -30,6 +30,15 @@ namespace VirtualExpress.Persistence.Repository
             return await _context.Freights.ToListAsync();
         }
 
+        public async Task<IEnumerable<Freight>> ListByMothAndYearDate(int month, int year)
+        {
+            return await _context.Freights
+                .Where(p => p.DepartureDate.Year == year)
+                .Where(p => p.DepartureDate.Month == month)
+                .Include(p => p.Driver)
+                .ToListAsync();
+        }
+
         public void Remove(Freight freight)
         {
             _context.Freights.Remove(freight);

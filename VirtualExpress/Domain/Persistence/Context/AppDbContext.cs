@@ -140,6 +140,7 @@ namespace VirtualExpress.Domain.Persistence.Context
             builder.Entity<Freight>().HasOne(p => p.Driver)
                 .WithMany(p => p.Freights).HasForeignKey(p=>p.DriverId);
 
+
             //Customer
             builder.Entity<Customer>().ToTable("Customer");
             builder.Entity<Customer>().HasKey(P => P.Id);
@@ -153,6 +154,8 @@ namespace VirtualExpress.Domain.Persistence.Context
             builder.Entity<Customer>().Property(p => p.Direction)
                 .IsRequired().HasMaxLength(30);
             builder.Entity<Customer>().Property(p => p.EMail).HasMaxLength(50);
+            builder.Entity<Customer>().Property(p => p.Password)
+                .IsRequired().HasMaxLength(20);
 
 
             //chat
@@ -181,6 +184,8 @@ namespace VirtualExpress.Domain.Persistence.Context
             builder.Entity<Subscription>().HasKey(p => p.Id);
             builder.Entity<Subscription>().Property(p => p.Id)
                 .IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Subscription>().Property(p => p.Name)
+                .IsRequired().HasMaxLength(20);
             builder.Entity<Subscription>().HasOne(p => p.Customer)
                 .WithMany(p => p.Subscriptions).HasForeignKey(p=>p.CustomerId);
             builder.Entity<Subscription>().HasOne(p => p.Company)

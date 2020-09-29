@@ -30,6 +30,14 @@ namespace VirtualExpress.Persistence.Repository
             return await _context.Packages.ToListAsync();
         }
 
+        public async Task<IEnumerable<Package>> ListByCostumerId(int costumerId)
+        {
+            return await _context.Packages
+                .Where(p => p.CustomerId == costumerId)
+                .Include(p => p.Customer)
+                .ToListAsync();
+        }
+
         public void Remove(Package package)
         {
             _context.Packages.Remove(package);

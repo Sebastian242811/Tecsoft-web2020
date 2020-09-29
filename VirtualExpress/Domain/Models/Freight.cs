@@ -14,5 +14,10 @@ namespace VirtualExpress.Domain.Models
         public int DriverId { get; set; }
         public Driver Driver { get; set; }
         public IList<Package> Packages { get; set; } = new List<Package>();
+
+        public Freight()
+        {
+            this.DepartureDate = DateTime.UtcNow;
+        }
     }
 }

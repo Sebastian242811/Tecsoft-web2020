@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VirtualExpress.Domain.Models;
 using VirtualExpress.Domain.Persistence.Context;
 using VirtualExpress.Domain.Repositories;
 
@@ -29,6 +30,14 @@ namespace VirtualExpress.Persistence.Repository
             return await _context.Drivers.ToListAsync();
         }
 
+        public async Task<IEnumerable<Driver>> ListByCompanyId(int companyId)
+        {
+            return await _context.Drivers
+                .Where(p => p.CompanyId == companyId)
+                .Include(p => p.Company)
+                .ToListAsync();
+        }
+
         public void Remove(Domain.Models.Driver driver)
         {
             _context.Drivers.Remove(driver);
@@ -38,5 +47,6 @@ namespace VirtualExpress.Persistence.Repository
         {
             _context.Drivers.Update(driver);
         }
+
     }
 }

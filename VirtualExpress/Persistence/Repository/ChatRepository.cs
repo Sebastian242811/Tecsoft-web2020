@@ -30,6 +30,16 @@ namespace VirtualExpress.Persistence.Repository
             return await _context.Chats.ToListAsync();
         }
 
+        public async Task<IEnumerable<Chat>> ListByUserIdAndEmployeeId(int userId, int employeeId)
+        {
+            return await _context.Chats
+                .Where(p => p.CustomerId == userId)
+                .Where(p => p.ServiceEmployeeId == employeeId)
+                .Include(p => p.Customer)
+                .Include(p => p.ServiceEmployee)
+                .ToListAsync();
+        }
+
         public void Remove(Chat chat)
         {
             _context.Chats.Remove(chat);

@@ -9,6 +9,7 @@ namespace VirtualExpress.Domain.Models
     {
         public int Id { get; set; }
         public int CompanyId { get; set; }
+        public string Name { get; set; }
         public Company Company { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }

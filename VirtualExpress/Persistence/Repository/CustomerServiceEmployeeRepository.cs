@@ -9,7 +9,7 @@ using VirtualExpress.Domain.Repositories;
 
 namespace VirtualExpress.Persistence.Repository
 {
-    public class CustomerServiceEmployeeRepository : BaseRepository, ICustumerServiceEmployeeRepository
+    public class CustomerServiceEmployeeRepository : BaseRepository, ICustomerServiceEmployeeRepository
     {
         public CustomerServiceEmployeeRepository(AppDbContext context) : base(context)
         {
@@ -28,6 +28,14 @@ namespace VirtualExpress.Persistence.Repository
         public async Task<IEnumerable<CustomerServiceEmployee>> ListAsync()
         {
             return await _context.CustomerServiceEmployees.ToListAsync();
+        }
+
+        public async Task<IEnumerable<CustomerServiceEmployee>> ListByTerminalId(int terminalId)
+        {
+            return await _context.CustomerServiceEmployees
+                .Where(p => p.TerminalId == terminalId)
+                .Include(p => p.Terminal)
+                .ToListAsync();
         }
 
         public void Remove(CustomerServiceEmployee customerServiceEmployee)
