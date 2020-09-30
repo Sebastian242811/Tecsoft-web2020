@@ -39,7 +39,6 @@ namespace VirtualExpress.Controllers
             return resource;
         }
 
-
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveTerminalResource resource)
         {
@@ -73,8 +72,15 @@ namespace VirtualExpress.Controllers
 
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var result = await _terminalService.DeleteAsync(id);
+
+            if (!result.Sucess)
+                return BadRequest(result.Message);
+
+            return Ok(result.Resource);
         }
+
     }
 }

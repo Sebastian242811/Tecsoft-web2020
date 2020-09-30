@@ -65,5 +65,16 @@ namespace VirtualExpress.Controllers
 
             return Ok(packageResource);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _packageStateService.DeleteAsync(id);
+
+            if (!result.Sucess)
+                return BadRequest(result.Message);
+
+            return Ok("Delete");
+        }
     }
 }

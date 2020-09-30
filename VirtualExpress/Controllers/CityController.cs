@@ -73,5 +73,16 @@ namespace VirtualExpress.Controllers
             var categoryResource = _mapper.Map<City, CityResource>(result.Resource);
             return Ok(categoryResource);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _cityService.DeleteAsync(id);
+
+            if (!result.Sucess)
+                return BadRequest(result.Message);
+
+            return Ok("Delete");
+        }
     }
 }

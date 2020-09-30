@@ -15,5 +15,7 @@ namespace VirtualExpress.Domain.Services
         Task<TerminalResponse> SaveAssync(Terminal terminal);
         Task<TerminalResponse> UpdateAssync(int id, Terminal terminal);
         Task<TerminalResponse> DeleteAsync(int id);
+        Task<TerminalResponse> AssignTerminalCompanyAsync(int terminaId, int companyID);
+        Task<TerminalResponse> GetByIdAsync(int id);
     }
 }

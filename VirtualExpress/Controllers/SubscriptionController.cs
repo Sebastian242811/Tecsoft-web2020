@@ -68,5 +68,16 @@ namespace VirtualExpress.Controllers
             var susbcriptionResource = _mapper.Map<Subscription, SubscriptionResource>(result.Resource);
             return Ok(susbcriptionResource);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _subscriptionService.DeleteAsync(id);
+
+            if (!result.Sucess)
+                return BadRequest(result.Message);
+
+            return Ok("Delete");
+        }
     }
 }

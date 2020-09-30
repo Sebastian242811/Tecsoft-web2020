@@ -12,10 +12,11 @@ namespace VirtualExpress.Domain.Repositories
         Task<IEnumerable<Terminal>> ListByCityOriginIdAndCityShipIdAsync(int cityOriginId, int cityShipId);
         Task<IEnumerable<Terminal>> ListByCompanyByIdAsync(int id);
         Task<Terminal> FindByCompanyIdAndCityOriginIdAndCityShipId(int companyId, int cityOriginId, int cityShipId);
+        Task<Terminal> FindByTerminalIdAndCompanyId(int terminalId, int companyId);
         Task<Terminal> FindById(int id);
         Task AddAsync(Terminal terminal);
         void Remove(Terminal terminal);
-        //Task AssignTerminal(int companyId, int cityId);
-        //Task UnassignTerminal(int companyId, int cityId);
+        void Update(Terminal terminal);
+        Task AssignTerminalCompany(int terminalId, int companyId);
     }
 }

@@ -67,5 +67,16 @@ namespace VirtualExpress.Controllers
             var employeeResource = _mapper.Map<CustomerServiceEmployee, CustomerServiceEmployeeResource>(result.Resource);
             return Ok(employeeResource);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _customerEmployeeService.DeleteAsync(id);
+
+            if (!result.Sucess)
+                return BadRequest(result.Message);
+
+            return Ok("Delete");
+        }
     }
 }

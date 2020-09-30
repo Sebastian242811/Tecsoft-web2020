@@ -67,5 +67,16 @@ namespace VirtualExpress.Controllers
             var driverResource = _mapper.Map<Driver, DriverResource>(result.Resource);
             return Ok(driverResource);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _driverService.DeleteAsync(id);
+
+            if (!result.Sucess)
+                return BadRequest(result.Message);
+
+            return Ok("Delete");
+        }
     }
 }

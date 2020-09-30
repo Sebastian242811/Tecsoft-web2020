@@ -66,5 +66,16 @@ namespace VirtualExpress.Controllers
             var payResource = _mapper.Map<Pay, PayResource>(result.Resource);
             return Ok(payResource);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _payService.DeleteAsync(id);
+
+            if (!result.Sucess)
+                return BadRequest(result.Message);
+
+            return Ok("Delete");
+        }
     }
 }

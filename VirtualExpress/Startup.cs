@@ -19,6 +19,7 @@ using VirtualExpress.Domain.Services;
 using VirtualExpress.Domain.Services.Communications;
 using VirtualExpress.Extensions;
 using VirtualExpress.Persistence.Repository;
+using VirtualExpress.Resource;
 using VirtualExpress.Services;
 
 namespace VirtualExpress
@@ -54,7 +55,7 @@ namespace VirtualExpress
             services.AddScoped<ICustomerServiceEmployeeRepository, CustomerServiceEmployeeRepository>();
             services.AddScoped<IDispatcherRepository, DispatcherRepository>();
             services.AddScoped<IDriverRepository, DriverRepository>();
-
+            services.AddScoped<IComentaryRepository, ComentaryRepository>();
             services.AddRouting(options => options.LowercaseUrls = true);
 
             //Unit of Work
@@ -73,6 +74,7 @@ namespace VirtualExpress
             services.AddScoped<ICustomerServiceEmployeeService, CustomerServiceEmployeeService>();
             services.AddScoped<IDispatcherService, DispatcherService>();
             services.AddScoped<IDriverService, DriverService>();
+            services.AddScoped<ICommentaryService, CommentService>();
 
             services.AddAutoMapper(typeof(Startup));
 

@@ -59,5 +59,26 @@ namespace VirtualExpress.Persistence.Repository
         {
             return await _context.Terminals.FindAsync(id);
         }
+
+        public async Task AssignTerminalCompany(int terminalId, int companyId)
+        {
+            Terminal terminal = await _context.Terminals.FindAsync(terminalId, companyId);
+            if (terminal == null)
+                await AddAsync(terminal);
+        }
+
+        public void Update(Terminal terminal)
+        {
+            _context.Terminals.Update(terminal);
+        }
+
+        public async Task<Terminal> FindByTerminalIdAndCompanyId(int terminalId, int companyId)
+        {
+            return await _context.Terminals
+                .Where(p => p.CompanyId == companyId)
+                .Where(p => p.Id == terminalId)
+                .Include(pt => pt.Company)
+                .FirstOrDefaultAsync();
+        }
     }
 }

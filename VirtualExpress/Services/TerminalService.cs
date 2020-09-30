@@ -21,6 +21,21 @@ namespace VirtualExpress.Services
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<TerminalResponse> AssignTerminalCompanyAsync(int terminaId, int companyID)
+        {
+            try
+            {
+                await _terminalRepository.AssignTerminalCompany(terminaId, companyID);
+                await _unitOfWork.CompleteAsync();
+            }
+            catch (Exception e)
+            {
+                return new TerminalResponse($"An error ocurred while assigning the terminal: {e.Message}");
+            }
+
+            return new TerminalResponse(await _terminalRepository.FindByTerminalIdAndCompanyId(terminaId, companyID));
+        }
+
         public async Task<TerminalResponse> DeleteAsync(int id)
         {
             var existingTerminal = await _terminalRepository.FindById(id);
@@ -39,19 +54,27 @@ namespace VirtualExpress.Services
             }
         }
 
+        public async Task<TerminalResponse> GetByIdAsync(int id)
+        {
+            var existing = await _terminalRepository.FindById(id);
+            if (existing == null)
+                return new TerminalResponse("Terminal not found");
+            return new TerminalResponse(existing);
+        }
+
         public async Task<IEnumerable<Terminal>> ListAsync()
         {
             return await _terminalRepository.ListAsync();
         }
 
-        public Task<IEnumerable<Terminal>> ListByCityOriginIdAndCityShipIdAsync(int cityOriginId, int cityShipId)
+        public async Task<IEnumerable<Terminal>> ListByCityOriginIdAndCityShipIdAsync(int cityOriginId, int cityShipId)
         {
-            throw new NotImplementedException();
+            return await _terminalRepository.ListByCityOriginIdAndCityShipIdAsync(cityOriginId, cityShipId);
         }
 
-        public Task<IEnumerable<Terminal>> ListByCompanyByIdAsync(int id)
+        public async Task<IEnumerable<Terminal>> ListByCompanyByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _terminalRepository.ListByCompanyByIdAsync(id);
         }
 
         public async Task<TerminalResponse> SaveAssync(Terminal terminal)
@@ -70,9 +93,23 @@ namespace VirtualExpress.Services
             
         }
 
-        public Task<TerminalResponse> UpdateAssync(int id, Terminal terminal)
+        public async Task<TerminalResponse> UpdateAssync(int id, Terminal terminal)
         {
-            throw new NotImplementedException();
+            var existingTerminal = await _terminalRepository.FindById(id);
+            if (existingTerminal == null)
+                return new TerminalResponse("Terminal not found");
+            existingTerminal.Name = terminal.Name;
+            try
+            {
+                _terminalRepository.Update(existingTerminal);
+                await _unitOfWork.CompleteAsync();
+
+                return new TerminalResponse(existingTerminal);
+            }
+            catch (Exception e)
+            {
+                return new TerminalResponse($"An error ocurred while deleting the terminal: {e.Message}");
+            }
         }
     }
 }

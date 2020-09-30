@@ -68,5 +68,16 @@ namespace VirtualExpress.Controllers
             var freightResource = _mapper.Map<Freight, FreightResource>(result.Resource);
             return Ok(freightResource);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _freightService.DeleteAsync(id);
+
+            if (!result.Sucess)
+                return BadRequest(result.Message);
+
+            return Ok("Delete");
+        }
     }
 }
